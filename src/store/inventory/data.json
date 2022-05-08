@@ -1,0 +1,66 @@
+[
+  {
+    "id": 1,
+    "name": "Mountain Dew",
+    "code": "A1",
+    "color": "#DFFF00",
+    "quantity": 0,
+    "price": 25
+  },
+  {
+    "id": 2,
+    "name": "A&W Root Beer",
+    "code": "A2",
+    "color": "#FFBF00",
+    "quantity": 10,
+    "price": 50
+  },
+  {
+    "id": 3,
+    "name": "Fanta",
+    "code": "A3",
+    "color": "#FF7F50",
+    "quantity": 10,
+    "price": 18
+  },
+  {
+    "id": 4,
+    "name": "Schweppes",
+    "code": "A4",
+    "color": "#DE3163",
+    "quantity": 10,
+    "price": 15
+  },
+  {
+    "id": 5,
+    "name": "Sprite",
+    "code": "B1",
+    "color": "#9FE2BF",
+    "quantity": 10,
+    "price": 18
+  },
+  {
+    "id": 6,
+    "name": "Chupa Chups",
+    "code": "B2",
+    "color": "#40E0D0",
+    "quantity": 10,
+    "price": 49
+  },
+  {
+    "id": 7,
+    "name": "Coca-Cola",
+    "code": "B3",
+    "color": "#7FFF00",
+    "quantity": 10,
+    "price": 13
+  },
+  {
+    "id": 8,
+    "name": "Pepsi",
+    "code": "B4",
+    "color": "#CCCCFF",
+    "quantity": 10,
+    "price": 15
+  }
+]

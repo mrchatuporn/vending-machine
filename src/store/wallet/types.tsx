@@ -1,0 +1,37 @@
+export enum TYPE {
+  GET_WALLET_PENDING = 'GET_WALLET_PENDING',
+  GET_WALLET_SUCCESS = 'GET_WALLET_SUCCESS',
+  GET_WALLET_FAIL = 'GET_WALLET_FAIL',
+  SET_WALLET_PENDING = 'SET_WALLET_PENDING',
+  SET_WALLET_SUCCESS = 'SET_WALLET_SUCCESS',
+  SET_WALLET_FAIL = 'SET_WALLET_FAIL',
+}
+
+interface GET_PENDING {
+  type: TYPE.GET_WALLET_PENDING;
+}
+
+interface GET_SUCCESS {
+  type: TYPE.GET_WALLET_SUCCESS;
+}
+
+interface GET_FAIL {
+  type: TYPE.GET_WALLET_FAIL;
+  payload: string;
+}
+
+interface SET_PENDING {
+  type: TYPE.SET_WALLET_PENDING;
+}
+
+interface SET_SUCCESS {
+  type: TYPE.SET_WALLET_SUCCESS;
+  payload: number;
+}
+
+interface SET_FAIL {
+  type: TYPE.SET_WALLET_FAIL;
+  payload: string;
+}
+
+export type Action = GET_PENDING | GET_SUCCESS | GET_FAIL | SET_PENDING | SET_SUCCESS | SET_FAIL;
