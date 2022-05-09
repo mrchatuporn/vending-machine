@@ -1,6 +1,7 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
+import Header from '../base/header';
 import Message from '../message';
 import InsideGlass from '../inside-glass';
 import Deposit from '../deposit';
@@ -9,9 +10,8 @@ import ProductSelection from '../product-selection';
 
 const MachineContainer = styled.div`
   background: #212529;
-  border: 2px solid #393c40;
-  padding: 4.5rem 1rem;
-  height: 100vh;
+  padding: 1.5rem 0;
+
   display: flex;
   flex-grow: 1;
   justify-content: center;
@@ -32,7 +32,7 @@ const MachineContainer = styled.div`
   .control-panel {
     width: 30%;
 
-    .panel {
+    .control-item {
       margin-bottom: 1.4rem;
 
       &:last-child {
@@ -42,25 +42,40 @@ const MachineContainer = styled.div`
   }
 `;
 
+const LayoutMachine = styled.div`
+  background: #212529;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: center;
+  border: 2px solid #393c40;
+  padding: 2.5rem 1rem;
+`;
+
 const Machine: FunctionComponent = () => {
   return (
-    <MachineContainer>
-      <div className='canned-drink'>
-        <InsideGlass />
-        <Message />
-      </div>
-      <div className='control-panel'>
-        <div className='panel'>
-          <Deposit />
+    <LayoutMachine>
+      <Header title='vending-machine' fontSize='18px' />
+      <MachineContainer>
+        <div className='canned-drink'>
+          <InsideGlass />
+          <Message />
         </div>
-        <div className='panel'>
-          <ProductSelection />
+        <div className='control-panel'>
+          <div className='control-item'>
+            <Deposit />
+          </div>
+          <div className='control-item'>
+            <ProductSelection />
+          </div>
+          <div className='control-item'>
+            <Withdraw />
+          </div>
         </div>
-        <div className='panel'>
-          <Withdraw />
-        </div>
-      </div>
-    </MachineContainer>
+      </MachineContainer>
+    </LayoutMachine>
   );
 };
 

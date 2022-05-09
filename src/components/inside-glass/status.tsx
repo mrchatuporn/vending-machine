@@ -63,7 +63,7 @@ const Status: FunctionComponent<IStatusProps> = ({ code, quantity, price }) => {
   useEffect(() => {
     const { color } = verifyQuantity(quantity > 0);
     setColor(color);
-  }, []);
+  }, [quantity]);
 
   return (
     <Container color={color}>

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import { useTypedSelector } from '../../hooks';
 
 const MessageContainer = styled.div`
-  @import url(https://fonts.googleapis.com/css?family=Press+Start+2P);
   padding: 0.25rem 1rem;
   background: #dcdcdc;
   margin-top: 1rem;
@@ -21,7 +20,7 @@ const MessageContainer = styled.div`
     font-size: 0.75rem;
     font-weight: 500;
     color: #393c40;
-    font-family: 'Press Start 2P', cursive;
+    font-family: 'Press Start 2P', cursive !important;
   }
 `;
 

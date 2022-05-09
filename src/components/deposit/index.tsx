@@ -1,6 +1,5 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 import { depositWallet } from '../../store/wallet/actions';
@@ -12,14 +11,38 @@ import Header from '../base/header';
 import Button from '../base/button';
 
 const DepositContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
   .wallet-total {
     text-align: center;
+    width: 100%;
+    padding: 0 5px;
 
     .price {
       border: dashed 1px #696969;
+
       span {
         color: #fff;
       }
+    }
+  }
+
+  .button-deposit {
+    gap: 0;
+    grid-template-columns: repeat(2, minmax(0, 2fr));
+    display: grid;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    width: 100%;
+
+    .rates {
+      padding: 0 5px;
     }
   }
 `;
@@ -43,25 +66,19 @@ const Deposit: FunctionComponent = () => {
   return (
     <LayoutControl>
       <DepositContainer>
-        <Container>
-          <Row>
-            <Col md={12} className='wallet-total'>
-              <Header title='deposit' />
-              <div className='price'>
-                <span>{wallet}</span>
-              </div>
-            </Col>
-            <Col md={12} className='button-deposit'>
-              <Row>
-                {prices.map((price, index) => (
-                  <Col key={index} md={6}>
-                    <Button type='deposit' name={price} handlerClick={() => handleAddPrice(price)} />
-                  </Col>
-                ))}
-              </Row>
-            </Col>
-          </Row>
-        </Container>
+        <div className='wallet-total'>
+          <Header title='deposit' fontSize='18px' />
+          <div className='price'>
+            <span>{wallet}</span>
+          </div>
+        </div>
+        <div className='button-deposit'>
+          {prices.map((price, index) => (
+            <div className='rates' key={index}>
+              <Button type='deposit' name={price} handlerClick={() => handleAddPrice(price)} />
+            </div>
+          ))}
+        </div>
       </DepositContainer>
     </LayoutControl>
   );

@@ -26,7 +26,7 @@ const InsideGlassContainer = styled.div`
   }
 
   .item,
-  .canned {
+  .box-canned {
     justify-items: center;
     justify-content: center;
     display: flex;
@@ -34,7 +34,7 @@ const InsideGlassContainer = styled.div`
     width: 100%;
   }
 
-  .canned {
+  .box-canned {
     padding: 1rem;
   }
 
@@ -51,7 +51,7 @@ const InsideGlassContainer = styled.div`
     }
   }
 
-  .status {
+  .box-status {
     background: #fff;
   }
 `;
@@ -67,10 +67,10 @@ const InsideGlass: FunctionComponent = () => {
         {inventories.map(inventory => (
           <div className='item' key={inventory.id}>
             <div className='box'>
-              <div className='canned'>
+              <div className='box-canned'>
                 <Canned color={inventory.color} name={inventory.name} />
               </div>
-              <div className='status'>
+              <div className='box-status'>
                 <Status code={inventory.code} quantity={inventory.quantity} price={inventory.price} />
               </div>
             </div>

@@ -1,29 +1,31 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-const HeaderContainer = styled.div`
-  width: 100%;
-
+const HeaderContainer = styled.div<{ fontSize: string }>`
+  width: 100%
   display: flex;
   justify-content: center;
   align-items: center;
+  padding-bottom: 5px;
 
-  h2 {
-    font-size: 14px !important;
-    font-weight: 400 !important;
+  strong {
+    font-size: ${props => props.fontSize};
+    font-weight: bold;
     color: #fff;
     text-transform: capitalize;
+    text-transform: uppercase;
   }
 `;
 
 interface IHeaderProps {
   title: string;
+  fontSize: string;
 }
 
-const Header: FunctionComponent<IHeaderProps> = ({ title }) => {
+const Header: FunctionComponent<IHeaderProps> = ({ title, fontSize }) => {
   return (
-    <HeaderContainer>
-      <h2>{title}</h2>
+    <HeaderContainer fontSize={fontSize}>
+      <strong>{title}</strong>
     </HeaderContainer>
   );
 };
