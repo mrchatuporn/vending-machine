@@ -32,7 +32,12 @@ const walletReducer = (state: IState = initialState, action: Action): IState => 
         loading: false,
         wallet: state.wallet - action.payload,
       };
-
+    case TYPE.WITHDRAW_WALLET:
+      return {
+        ...state,
+        loading: false,
+        wallet: 0,
+      };
     default:
       return state;
   }

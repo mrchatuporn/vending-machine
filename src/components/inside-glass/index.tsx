@@ -2,10 +2,10 @@ import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import { useTypedSelector } from '../../hooks';
-import Canned from '../canned';
+import Canned from './canned';
 import Status from './status';
 
-const CannedContainer = styled.div`
+const InsideGlassContainer = styled.div`
   background: #43ada7;
   border: 2px solid #43ada7;
   border-radius: 7px;
@@ -62,7 +62,7 @@ const InsideGlass: FunctionComponent = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <CannedContainer>
+    <InsideGlassContainer>
       <div className='items'>
         {inventories.map(inventory => (
           <div className='item' key={inventory.id}>
@@ -77,7 +77,7 @@ const InsideGlass: FunctionComponent = () => {
           </div>
         ))}
       </div>
-    </CannedContainer>
+    </InsideGlassContainer>
   );
 };
 

@@ -2,7 +2,9 @@ import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 import { Container, Row, Col } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
+
 import { depositWallet } from '../../store/wallet/actions';
+import { removeMessage } from '../../store/message/actions';
 
 import { useTypedSelector } from '../../hooks';
 import LayoutControl from '../layouts/control';
@@ -25,10 +27,14 @@ const DepositContainer = styled.div`
 const Deposit: FunctionComponent = () => {
   const dispatch = useDispatch();
   const { wallet, loading, error } = useTypedSelector(state => state.wallet);
+  const { text } = useTypedSelector(state => state.message);
 
   const prices = [1, 5, 10, 20, 50, 100, 500, 1000];
 
   const handleAddPrice = (price: number) => {
+    if (text) {
+      dispatch(removeMessage());
+    }
     dispatch(depositWallet(price));
   };
 

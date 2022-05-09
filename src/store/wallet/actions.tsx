@@ -53,3 +53,20 @@ export const reduceWallet = (price: number) => (dispatch: Dispatch<Action>) => {
     });
   }
 };
+
+export const withdrawWallet = () => (dispatch: Dispatch<Action>) => {
+  dispatch({
+    type: TYPE.WALLET_PENDING,
+  });
+
+  try {
+    dispatch({
+      type: TYPE.WITHDRAW_WALLET,
+    });
+  } catch (e: any) {
+    dispatch({
+      type: TYPE.WALLET_FAIL,
+      payload: e.message,
+    });
+  }
+};

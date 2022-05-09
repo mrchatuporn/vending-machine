@@ -32,11 +32,12 @@ const ButtonSelection = styled.button<{ active: boolean }>`
   cursor: pointer;
 `;
 
-const ButtonIcon = styled.button`
+const ButtonIcon = styled.button<{ height: string }>`
   width: 100%;
   border-radius: 3px;
   border: 1px solid #696969;
   background: #696969;
+  height: ${props => props.height};
 
   span {
     font-size: 16px;
@@ -50,10 +51,11 @@ interface IButtonProps {
   name: number | string;
   active?: boolean;
   color?: string;
+  height?: string;
   handlerClick?: () => void;
 }
 
-const Button: FunctionComponent<IButtonProps> = ({ type, name, active, color, handlerClick }) => {
+const Button: FunctionComponent<IButtonProps> = ({ type, name, active, height, handlerClick }) => {
   switch (type) {
     case 'deposit':
       return (
@@ -69,7 +71,7 @@ const Button: FunctionComponent<IButtonProps> = ({ type, name, active, color, ha
       );
     default:
       return (
-        <ButtonIcon type='button' onClick={handlerClick}>
+        <ButtonIcon type='button' height={height ? height : 'auto'} onClick={handlerClick}>
           <span>{name}</span>
         </ButtonIcon>
       );

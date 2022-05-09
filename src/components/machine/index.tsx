@@ -1,10 +1,10 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-import Message from './message';
-import InsideGlass from './inside-glass';
-import Slot from './slot';
+import Message from '../message';
+import InsideGlass from '../inside-glass';
 import Deposit from '../deposit';
+import Withdraw from '../withdraw';
 import ProductSelection from '../product-selection';
 
 const MachineContainer = styled.div`
@@ -33,7 +33,11 @@ const MachineContainer = styled.div`
     width: 30%;
 
     .panel {
-      margin-bottom: 0.5rem;
+      margin-bottom: 1.4rem;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
     }
   }
 `;
@@ -43,7 +47,7 @@ const Machine: FunctionComponent = () => {
     <MachineContainer>
       <div className='canned-drink'>
         <InsideGlass />
-        <Slot />
+        <Message />
       </div>
       <div className='control-panel'>
         <div className='panel'>
@@ -53,7 +57,7 @@ const Machine: FunctionComponent = () => {
           <ProductSelection />
         </div>
         <div className='panel'>
-          <Message />
+          <Withdraw />
         </div>
       </div>
     </MachineContainer>

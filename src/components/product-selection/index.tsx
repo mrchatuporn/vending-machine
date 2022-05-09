@@ -8,6 +8,7 @@ import Button from '../base/button';
 import { useTypedSelector } from '../../hooks';
 import { reduceInventory } from '../../store/inventory/actions';
 import { reduceWallet } from '../../store/wallet/actions';
+import { setMessage, removeMessage } from '../../store/message/actions';
 import { activeArray } from '../../helper/active';
 import { IInventory } from '../../store/inventory/reducer';
 
@@ -59,6 +60,7 @@ const ProductSelection: FunctionComponent = () => {
   const dispatch = useDispatch();
   const { inventories } = useTypedSelector(state => state.inventory);
   const { wallet } = useTypedSelector(state => state.wallet);
+  const { text } = useTypedSelector(state => state.message);
 
   const [isActive, setIsActive] = useState<string[]>(['']);
   const [productCode, setProductCode] = useState<string>('');
@@ -67,44 +69,52 @@ const ProductSelection: FunctionComponent = () => {
 
   const handleAddProductCode = (name: string): void => {
     if (wallet <= 0) {
-      return alert('wallet is empty');
+      dispatch(setMessage('wallet is empty'));
+      return;
     }
 
     if (productCode?.length >= 2) {
       setProductCode(name);
       setIsActive([name]);
     }
+
+    if (text) {
+      dispatch(removeMessage());
+    }
+
     setIsActive([...isActive, name]);
     setProductCode(productCode + name);
   };
 
   const handleConfirm = (): void => {
     if (productCode?.length < 2) {
-      return alert('please select product code 2 digits');
+      dispatch(setMessage('please select product code 2 digits'));
+      return;
     }
 
     const product: IInventory | undefined = inventories.find(inventory => inventory.code === productCode);
 
     if (!product) {
-      alert(`product code ${productCode} not found`);
+      dispatch(setMessage(`product code ${productCode} not found`));
       handleReset();
       return;
     }
 
     if (product.quantity === 0) {
-      alert(`product ${product.name}(${productCode}) is out of stock`);
+      dispatch(setMessage(`product ${product.name}(${productCode}) is out of stock`));
       handleReset();
       return;
     }
 
     if (wallet < product.price) {
-      alert(`wallet is not enough to buy ${product.name}(${productCode})`);
+      dispatch(setMessage(`wallet is not enough to buy ${product.name}(${productCode})`));
       handleReset();
       return;
     }
 
     dispatch(reduceInventory(productCode));
     dispatch(reduceWallet(product.price));
+    dispatch(setMessage(`${product.name}(${productCode}) is purchased`));
     handleReset();
   };
 
