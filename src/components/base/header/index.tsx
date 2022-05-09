@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-const HeaderContainer = styled.div<{ fontSize: string }>`
+const HeaderContainer = styled.div<{ fontSize: string; color: string }>`
   width: 100%
   display: flex;
   justify-content: center;
@@ -11,7 +11,7 @@ const HeaderContainer = styled.div<{ fontSize: string }>`
   strong {
     font-size: ${props => props.fontSize};
     font-weight: bold;
-    color: #fff;
+    color: ${props => props.color};
     text-transform: capitalize;
     text-transform: uppercase;
   }
@@ -20,11 +20,12 @@ const HeaderContainer = styled.div<{ fontSize: string }>`
 interface IHeaderProps {
   title: string;
   fontSize: string;
+  color: string;
 }
 
-const Header: FunctionComponent<IHeaderProps> = ({ title, fontSize }) => {
+const Header: FunctionComponent<IHeaderProps> = ({ title, fontSize, color }) => {
   return (
-    <HeaderContainer fontSize={fontSize}>
+    <HeaderContainer fontSize={fontSize} color={color}>
       <strong>{title}</strong>
     </HeaderContainer>
   );

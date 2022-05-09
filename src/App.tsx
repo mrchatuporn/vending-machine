@@ -1,9 +1,11 @@
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { getInventory } from './store/inventory/actions';
+import { setPrice } from './store/prices/actions';
 import styled from 'styled-components';
 
 import Machine from './components/machine';
+import System from './components/system';
 
 const Container = styled.div`
   display: flex;
@@ -31,10 +33,15 @@ function App() {
 
   useEffect(() => {
     getInventoryHandler();
+    setPriceHandler();
   }, []);
 
   const getInventoryHandler = () => {
     dispatch(getInventory());
+  };
+
+  const setPriceHandler = () => {
+    dispatch(setPrice());
   };
 
   return (
@@ -42,7 +49,9 @@ function App() {
       <div className='machine'>
         <Machine />
       </div>
-      <div className='system'>System</div>
+      <div className='system'>
+        <System />
+      </div>
     </Container>
   );
 }

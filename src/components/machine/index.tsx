@@ -57,7 +57,7 @@ const LayoutMachine = styled.div`
 const Machine: FunctionComponent = () => {
   return (
     <LayoutMachine>
-      <Header title='vending-machine' fontSize='18px' />
+      <Header title='vending-machine' fontSize='18px' color='#fff' />
       <MachineContainer>
         <div className='canned-drink'>
           <InsideGlass />

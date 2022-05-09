@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 
 import { depositWallet } from '../../store/wallet/actions';
 import { removeMessage } from '../../store/message/actions';
+import { depositPrice } from '../../store/prices/actions';
 
 import { useTypedSelector } from '../../hooks';
 import LayoutControl from '../layouts/control';
@@ -59,6 +60,7 @@ const Deposit: FunctionComponent = () => {
       dispatch(removeMessage());
     }
     dispatch(depositWallet(price));
+    dispatch(depositPrice(price));
   };
 
   if (loading) return <div>Loading...</div>;
@@ -67,7 +69,7 @@ const Deposit: FunctionComponent = () => {
     <LayoutControl>
       <DepositContainer>
         <div className='wallet-total'>
-          <Header title='deposit' fontSize='18px' />
+          <Header title='deposit' fontSize='18px' color='#fff' />
           <div className='price'>
             <span>{wallet}</span>
           </div>

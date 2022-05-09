@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 
 import { withdrawWallet } from '../../store/wallet/actions';
 import { removeMessage, setMessage } from '../../store/message/actions';
+import { withdrawPrice } from '../../store/prices/actions';
 
 import { useTypedSelector } from '../../hooks';
 import Button from '../base/button';
@@ -22,6 +23,7 @@ const Withdraw: FunctionComponent = () => {
       dispatch(removeMessage());
     }
     dispatch(withdrawWallet());
+    dispatch(withdrawPrice(wallet));
     dispatch(setMessage('withdraw success.'));
   };
 
