@@ -1,7 +1,7 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-const Container = styled.div`
+const CannedContainer = styled.div`
   position: relative;
 
   .can-top {
@@ -75,7 +75,6 @@ const Container = styled.div`
 
     &:after {
       display: flex;
-      // content: '';
       width: 100%;
       background: linear-gradient(
         90deg,
@@ -151,7 +150,7 @@ interface ICannedProps {
 
 const Canned: FunctionComponent<ICannedProps> = ({ color, name }) => {
   return (
-    <Container color={color}>
+    <CannedContainer color={color}>
       <div className='can-top'>
         <div className='highlight'></div>
       </div>
@@ -161,7 +160,7 @@ const Canned: FunctionComponent<ICannedProps> = ({ color, name }) => {
       <div className='can-bottom'>
         <div className='highlight'></div>
       </div>
-    </Container>
+    </CannedContainer>
   );
 };
 export default Canned;

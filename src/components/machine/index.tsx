@@ -1,6 +1,5 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { Row, Col } from 'react-bootstrap';
 
 import Message from './message';
 import InsideGlass from './inside-glass';
@@ -9,38 +8,54 @@ import Deposit from '../deposit';
 import ProductSelection from '../product-selection';
 
 const MachineContainer = styled.div`
-  background: #808080;
-  border: 2px solid #696969;
-  border-radius: 7px;
-  padding: 2rem;
+  background: #212529;
+  border: 2px solid #393c40;
+  padding: 4.5rem 1rem;
+  height: 100vh;
+  display: flex;
+  flex-grow: 1;
+  justify-content: center;
+  align-items: start;
+  width: 100%;
 
-  .machine-control {
-    margin-bottom: 0.5rem;
+  .canned-drink,
+  .control-panel {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .canned-drink {
+    width: 70%;
+    margin-right: 1rem;
+  }
+
+  .control-panel {
+    width: 30%;
+
+    .panel {
+      margin-bottom: 0.5rem;
+    }
   }
 `;
 
 const Machine: FunctionComponent = () => {
   return (
     <MachineContainer>
-      <Row>
-        <Col md={8}>
-          <InsideGlass />
-          <Slot />
-        </Col>
-        <Col md={4}>
-          <Row>
-            <Col md={12} className='machine-control'>
-              <Deposit />
-            </Col>
-            <Col md={12} className='machine-control'>
-              <ProductSelection />
-            </Col>
-            <Col md={12} className='machine-control'>
-              <Message />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+      <div className='canned-drink'>
+        <InsideGlass />
+        <Slot />
+      </div>
+      <div className='control-panel'>
+        <div className='panel'>
+          <Deposit />
+        </div>
+        <div className='panel'>
+          <ProductSelection />
+        </div>
+        <div className='panel'>
+          <Message />
+        </div>
+      </div>
     </MachineContainer>
   );
 };

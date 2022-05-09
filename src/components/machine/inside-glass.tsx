@@ -1,6 +1,5 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
-import { Row, Col } from 'react-bootstrap';
 
 import { useTypedSelector } from '../../hooks';
 import Canned from '../canned';
@@ -12,12 +11,27 @@ const CannedContainer = styled.div`
   border-radius: 7px;
   padding: 1.5rem 1rem;
   border: 2px solid #dcdcdc;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+  .items {
+    gap: 0;
+    grid-template-columns: repeat(4, minmax(0, 2fr));
+    display: grid;
+    justify-content: center;
+    width: 100%;
+  }
 
   .item,
   .canned {
     justify-items: center;
     justify-content: center;
     display: flex;
+    justify-content: column;
+    width: 100%;
   }
 
   .canned {
@@ -30,6 +44,10 @@ const CannedContainer = styled.div`
     &:last-child,
     &:nth-last-child(5n) {
       border-right: 1px solid #43ada7;
+    }
+
+    .box {
+      width: 100%;
     }
   }
 
@@ -44,24 +62,22 @@ const InsideGlass: FunctionComponent = () => {
   if (loading) return <div>Loading...</div>;
 
   return (
-    <>
-      <CannedContainer>
-        <Row>
-          {inventories.map(inventory => (
-            <Col md={3} className='item' key={inventory.id}>
-              <Row>
-                <Col md={12} className='canned'>
-                  <Canned color={inventory.color} name={inventory.name} />
-                </Col>
-                <Col md={12} className='status'>
-                  <Status active={inventory.quantity > 0} code={inventory.code} />
-                </Col>
-              </Row>
-            </Col>
-          ))}
-        </Row>
-      </CannedContainer>
-    </>
+    <CannedContainer>
+      <div className='items'>
+        {inventories.map(inventory => (
+          <div className='item' key={inventory.id}>
+            <div className='box'>
+              <div className='canned'>
+                <Canned color={inventory.color} name={inventory.name} />
+              </div>
+              <div className='status'>
+                <Status code={inventory.code} quantity={inventory.quantity} price={inventory.price} />
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </CannedContainer>
   );
 };
 

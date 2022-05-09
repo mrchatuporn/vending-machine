@@ -1,59 +1,143 @@
 import { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
-import { Container, Row, Col } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
 
+import LayoutControl from '../layouts/control';
 import Button from '../base/button';
+
+import { useTypedSelector } from '../../hooks';
+import { reduceInventory } from '../../store/inventory/actions';
+import { reduceWallet } from '../../store/wallet/actions';
 import { activeArray } from '../../helper/active';
+import { IInventory } from '../../store/inventory/reducer';
 
 const ProductSelectionContainer = styled.div`
-  padding: 0.5rem;
-  background: #000;
-  border-radius: 7px;
-  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: start;
+  justify-content: center;
   align-items: center;
-  border: 2px solid #dcdcdc;
+  width: 100%;
+
+  .selection-number {
+    gap: 1.5rem;
+    grid-template-columns: repeat(3, minmax(0, 2fr));
+    display: grid;
+    width: 100%;
+    padding: 0.25rem 0.5rem;
+
+    .number {
+      display: flex;
+      justify-content: column;
+      width: 100%;
+    }
+  }
+
+  .selection-control {
+    margin-top: 0.5rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    .reset,
+    .confirm {
+      width: 100%;
+
+      &:first-child {
+        padding-right: 0.5rem;
+      }
+
+      &:last-child {
+        padding-left: 0.5rem;
+      }
+    }
+  }
 `;
 
 const ProductSelection: FunctionComponent = () => {
-  const selections = ['A', '1', '2', 'B', '3', '4'];
-  const [isActive, setIsActive] = useState<string[]>([]);
+  const dispatch = useDispatch();
+  const { inventories } = useTypedSelector(state => state.inventory);
+  const { wallet } = useTypedSelector(state => state.wallet);
+
+  const [isActive, setIsActive] = useState<string[]>(['']);
   const [productCode, setProductCode] = useState<string>('');
 
-  const handleAddProductCode = (name: string) => {
+  const selections = ['A', '1', '2', 'B', '3', '4'];
+
+  const handleAddProductCode = (name: string): void => {
+    if (wallet <= 0) {
+      return alert('wallet is empty');
+    }
+
     if (productCode?.length >= 2) {
       setProductCode(name);
       setIsActive([name]);
-    } else {
-      setIsActive([...isActive, name]);
-      setProductCode(productCode + name);
     }
+    setIsActive([...isActive, name]);
+    setProductCode(productCode + name);
+  };
+
+  const handleConfirm = (): void => {
+    if (productCode?.length < 2) {
+      return alert('please select product code 2 digits');
+    }
+
+    const product: IInventory | undefined = inventories.find(inventory => inventory.code === productCode);
+
+    if (!product) {
+      alert(`product code ${productCode} not found`);
+      handleReset();
+      return;
+    }
+
+    if (product.quantity === 0) {
+      alert(`product ${product.name}(${productCode}) is out of stock`);
+      handleReset();
+      return;
+    }
+
+    if (wallet < product.price) {
+      alert(`wallet is not enough to buy ${product.name}(${productCode})`);
+      handleReset();
+      return;
+    }
+
+    dispatch(reduceInventory(productCode));
+    dispatch(reduceWallet(product.price));
+    handleReset();
+  };
+
+  const handleReset = (): void => {
+    setProductCode('');
+    setIsActive(['']);
   };
 
   return (
-    <ProductSelectionContainer>
-      <Container>
-        <Row>
-          <Col md={12} className='button-deposit'>
-            <Row>
-              {selections.map((selection, index) => (
-                <Col key={index} md={4}>
-                  <div> {}</div>
-                  <Button
-                    type='selection'
-                    name={selection}
-                    handlerClick={() => handleAddProductCode(selection)}
-                    active={activeArray(isActive, selection)}
-                  />
-                </Col>
-              ))}
-            </Row>
-          </Col>
-        </Row>
-      </Container>
-    </ProductSelectionContainer>
+    <LayoutControl>
+      <ProductSelectionContainer>
+        <div className='selection-number'>
+          {selections.map((selection, index) => (
+            <div className='number' key={index}>
+              <Button
+                type='selection'
+                name={selection}
+                handlerClick={() => handleAddProductCode(selection)}
+                active={activeArray(isActive, selection)}
+              />
+            </div>
+          ))}
+        </div>
+        <div className='selection-control'>
+          <div className='reset'>
+            <Button name='reset' handlerClick={() => handleReset()} />
+          </div>
+          <div className='confirm'>
+            <Button name='confirm' handlerClick={() => handleConfirm()} />
+          </div>
+        </div>
+      </ProductSelectionContainer>
+    </LayoutControl>
   );
 };
 

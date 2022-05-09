@@ -8,42 +8,74 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 7px 20px;
+  padding: 4px 10px;
   flex-direction: row;
   border-radius: 10px;
+  flex-direction: column;
 
-  span {
-    font-size: 12px;
-    padding-left: 0.5rem;
-    font-weight: 500;
-    color: ${props => props.color};
+  .stock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+
+    .status {
+      width: 10px;
+      height: 10px;
+      background: ${props => props.color} !important;
+      border-radius: 50%;
+    }
+
+    span {
+      font-size: 12px;
+      padding-left: 0.5rem;
+      font-weight: 500;
+      color: ${props => props.color};
+
+      strong {
+        font-size: 12px;
+      }
+    }
   }
 
-  .status {
-    width: 10px;
-    height: 10px;
-    background: ${props => props.color} !important;
-    border-radius: 50%;
+  .price {
+    font-size: 12px;
+    font-weight: 500;
+    color: ${props => props.color};
+    border: dashed 1px ${props => props.color};
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.25rem;
   }
 `;
 
 interface IStatusProps {
-  active: boolean;
   code: string;
+  quantity: number;
+  price: number;
 }
 
-const Status: FunctionComponent<IStatusProps> = ({ active, code }) => {
+const Status: FunctionComponent<IStatusProps> = ({ code, quantity, price }) => {
   const [color, setColor] = useState<string>('#198754');
 
   useEffect(() => {
-    const { color } = verifyQuantity(active);
+    const { color } = verifyQuantity(quantity > 0);
     setColor(color);
   }, []);
 
   return (
     <Container color={color}>
-      <div className='status' />
-      <span>{code}</span>
+      <div className='stock'>
+        <div className='status' />
+        <span>
+          {code} (<strong>{quantity}</strong>)
+        </span>
+      </div>
+      <div className='price'>
+        <span>{price} THB</span>
+      </div>
     </Container>
   );
 };

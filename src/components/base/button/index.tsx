@@ -1,8 +1,9 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-const ButtonDeposit = styled.div`
+const ButtonDeposit = styled.button`
   margin: 0.25rem 0;
+  width: 100%;
   background: #dcdcdc;
   border: 1px solid #696969;
   border-radius: 4px;
@@ -15,7 +16,7 @@ const ButtonDeposit = styled.div`
   cursor: pointer;
 `;
 
-const ButtonSelection = styled.div<{ active: boolean }>`
+const ButtonSelection = styled.button<{ active: boolean }>`
   margin: 0.25rem 0;
   background: ${props => (props.active ? '#198754' : '#dcdcdc')};
   border: 1px solid #696969;
@@ -31,25 +32,47 @@ const ButtonSelection = styled.div<{ active: boolean }>`
   cursor: pointer;
 `;
 
+const ButtonIcon = styled.button`
+  width: 100%;
+  border-radius: 3px;
+  border: 1px solid #696969;
+  background: #696969;
+
+  span {
+    font-size: 16px;
+    color: #dcdcdc;
+    font-weight: 500;
+  }
+`;
+
 interface IButtonProps {
-  type: string;
+  type?: string;
   name: number | string;
   active?: boolean;
+  color?: string;
   handlerClick?: () => void;
 }
 
-const Button: FunctionComponent<IButtonProps> = ({ type, name, active, handlerClick }) => {
+const Button: FunctionComponent<IButtonProps> = ({ type, name, active, color, handlerClick }) => {
   switch (type) {
     case 'deposit':
-      return <ButtonDeposit onClick={handlerClick}>{name}</ButtonDeposit>;
+      return (
+        <ButtonDeposit type='button' onClick={handlerClick}>
+          <span>{name}</span>
+        </ButtonDeposit>
+      );
     case 'selection':
       return (
-        <ButtonSelection active={active ? true : false} onClick={handlerClick}>
-          {name}
+        <ButtonSelection type='button' active={active ? true : false} onClick={handlerClick}>
+          <span>{name}</span>
         </ButtonSelection>
       );
     default:
-      return <button>{name}</button>;
+      return (
+        <ButtonIcon type='button' onClick={handlerClick}>
+          <span>{name}</span>
+        </ButtonIcon>
+      );
   }
 };
 

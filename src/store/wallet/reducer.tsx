@@ -14,42 +14,25 @@ const initialState = {
 
 const walletReducer = (state: IState = initialState, action: Action): IState => {
   switch (action.type) {
-    case TYPE.GET_WALLET_PENDING:
+    case TYPE.WALLET_PENDING:
+      return { ...state, loading: true };
+    case TYPE.WALLET_FAIL:
+      return { ...state, loading: false, error: action.payload };
+    case TYPE.GET_WALLET:
+      return { ...state, loading: false };
+    case TYPE.DEPOSIT_WALLET:
       return {
-        loading: true,
-        wallet: state.wallet,
-        error: null,
-      };
-    case TYPE.GET_WALLET_SUCCESS:
-      return {
-        loading: false,
-        wallet: state.wallet,
-        error: null,
-      };
-    case TYPE.GET_WALLET_FAIL:
-      return {
-        loading: false,
-        wallet: state.wallet,
-        error: action.payload,
-      };
-    case TYPE.SET_WALLET_PENDING:
-      return {
-        loading: true,
-        wallet: state.wallet,
-        error: null,
-      };
-    case TYPE.SET_WALLET_SUCCESS:
-      return {
+        ...state,
         loading: false,
         wallet: state.wallet + action.payload,
-        error: null,
       };
-    case TYPE.SET_WALLET_FAIL:
+    case TYPE.REDUCE_WALLET:
       return {
+        ...state,
         loading: false,
-        wallet: state.wallet,
-        error: action.payload,
+        wallet: state.wallet - action.payload,
       };
+
     default:
       return state;
   }

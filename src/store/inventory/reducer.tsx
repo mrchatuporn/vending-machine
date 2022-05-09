@@ -23,23 +23,23 @@ const initialState = {
 
 const inventoryReducer = (state: IState = initialState, action: Action): IState => {
   switch (action.type) {
-    case TYPE.GET_INVENTORY_PENDING:
+    case TYPE.PENDING:
+      return { ...state, loading: true };
+    case TYPE.FAIL:
       return {
-        loading: true,
-        inventories: [],
-        error: null,
-      };
-    case TYPE.GET_INVENTORY_SUCCESS:
-      return {
+        ...state,
         loading: false,
-        inventories: action.payload,
-        error: null,
-      };
-    case TYPE.GET_INVENTORY_FAIL:
-      return {
-        loading: false,
-        inventories: [],
         error: action.payload,
+      };
+    case TYPE.GET_INVENTORY:
+      return { ...state, loading: false, inventories: action.payload };
+    case TYPE.REDUCE_INVENTORY:
+      return {
+        ...state,
+        loading: false,
+        inventories: state.inventories.map(inventory =>
+          inventory.code === action.payload ? { ...inventory, quantity: inventory.quantity - 1 } : inventory
+        ),
       };
     default:
       return state;
