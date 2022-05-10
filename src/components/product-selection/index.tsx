@@ -74,7 +74,10 @@ const ProductSelection: FunctionComponent = () => {
       return;
     }
 
-    if (productCode?.length >= 2 || name === productCode) return;
+    if (productCode?.length >= 2 || name === productCode) {
+      dispatch(setMessage('product code is already selected'));
+      return;
+    }
 
     if (productCode?.length >= 2) {
       setProductCode(name);
