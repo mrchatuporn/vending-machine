@@ -8,9 +8,10 @@ import { removeMessage } from '../../store/message/actions';
 import { depositPrice } from '../../store/prices/actions';
 
 import { useTypedSelector } from '../../hooks';
-import LayoutControl from '../layouts/control';
+import LayoutControl from '../base/layouts/control';
 import Header from '../base/header';
 import Button from '../base/button';
+import Loading from '../base/loading';
 
 const DepositContainer = styled.div`
   display: flex;
@@ -51,7 +52,7 @@ const DepositContainer = styled.div`
 
 const Deposit: FunctionComponent = () => {
   const dispatch = useDispatch();
-  const { wallet, loading, error } = useTypedSelector(state => state.wallet);
+  const { wallet, loading } = useTypedSelector(state => state.wallet);
   const { text } = useTypedSelector(state => state.message);
 
   const prices = [1, 5, 10, 20, 50, 100, 500, 1000];
@@ -78,7 +79,7 @@ const Deposit: FunctionComponent = () => {
     );
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <LayoutControl>

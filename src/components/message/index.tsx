@@ -2,6 +2,7 @@ import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
 import { useTypedSelector } from '../../hooks';
+import Loading from '../base/loading';
 
 const MessageContainer = styled.div`
   padding: 0.25rem 1rem;
@@ -27,7 +28,7 @@ const MessageContainer = styled.div`
 const Message: FunctionComponent = () => {
   const { text, loading, error } = useTypedSelector(state => state.message);
 
-  if (loading) return <span>loading...</span>;
+  if (loading) return <Loading />;
 
   return (
     <MessageContainer>

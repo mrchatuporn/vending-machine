@@ -1,8 +1,9 @@
 import { FunctionComponent, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-import LayoutTerminal from '../layouts/terminal';
+import LayoutTerminal from '../base/layouts/terminal';
 import { useTypedSelector } from '../../hooks';
+import Loading from '../base/loading';
 
 const CoinContainer = styled.div`
   display: flex;
@@ -50,7 +51,7 @@ const Logs: FunctionComponent = () => {
     logsEndRef.current.scrollIntoView({ behavior: 'smooth' });
   };
 
-  if (loading) return <span>...loading</span>;
+  if (loading) return <Loading />;
 
   return (
     <LayoutTerminal>

@@ -2,7 +2,7 @@ import { FunctionComponent, useState } from 'react';
 import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
-import LayoutControl from '../layouts/control';
+import LayoutControl from '../base/layouts/control';
 import Button from '../base/button';
 
 import { useTypedSelector } from '../../hooks';

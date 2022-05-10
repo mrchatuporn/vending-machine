@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { useTypedSelector } from '../../hooks';
 import Canned from './canned';
 import Status from './status';
+import Loading from '../base/loading';
 
 const InsideGlassContainer = styled.div`
   background: #43ada7;
@@ -57,9 +58,9 @@ const InsideGlassContainer = styled.div`
 `;
 
 const InsideGlass: FunctionComponent = () => {
-  const { inventories, loading, error } = useTypedSelector(state => state.inventory);
+  const { inventories, loading } = useTypedSelector(state => state.inventory);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <Loading />;
 
   return (
     <InsideGlassContainer>

@@ -1,7 +1,9 @@
 import { FunctionComponent } from 'react';
 import styled from 'styled-components';
 
-import LayoutTerminal from '../layouts/terminal';
+import LayoutTerminal from '../base/layouts/terminal';
+import Loading from '../base/loading';
+
 import { useTypedSelector } from '../../hooks';
 
 const CoinContainer = styled.div`
@@ -50,9 +52,9 @@ const CoinContainer = styled.div`
 `;
 
 const Coins: FunctionComponent = () => {
-  const { prices, error, loading } = useTypedSelector(state => state.prices);
+  const { prices, loading } = useTypedSelector(state => state.prices);
 
-  if (loading) return <span>...loading</span>;
+  if (loading) return <Loading />;
 
   return (
     <LayoutTerminal>
