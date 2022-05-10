@@ -1,27 +1,26 @@
-export const calculateWithdrawPrice = (wallet: number, prices: number[]): any => {
-  console.log('🚀 ~ file: calculate.tsx ~ line 4 ~ calculateWithdrawPrice ~ wallet', wallet);
-  let data: number[] = [];
+import { IPrice } from '../store/prices/reducer';
 
-  for (let i = 0; i < wallet; ) {
-    const price: any = closest(wallet, prices);
-    data.push(price);
-    wallet = wallet - price;
-  }
+export interface IBalance extends IPrice {
+  total: number;
+}
 
-  console.log(data);
-};
+export const calculateBalanceCoins = (wallet: number, prices: IPrice[]): IBalance[] => {
+  let balances = [];
 
-export const closest = (num: any, arr: any): number => {
-  let curr = arr[0];
-  let diff = Math.abs(num - curr);
-  for (var val = 0; val < arr.length; val++) {
-    let newdiff = Math.abs(num - arr[val]);
-    if (newdiff < diff) {
-      console.log('if', newdiff);
-      diff = newdiff;
-      curr = arr[val];
+  for (let i = prices?.length - 1; i >= 0; i--) {
+    while (wallet >= prices[i].price) {
+      wallet -= prices[i].price;
+      balances.push(prices[i]);
     }
   }
-  console.log(diff);
-  return curr;
+  return sumBalanceCoins(balances);
+};
+
+const sumBalanceCoins = (balances: IPrice[]): IBalance[] => {
+  return balances.reduce((unique: any, balance) => {
+    const objUnique = unique.find((o: any) => o.price === balance.price);
+    if (objUnique) objUnique.total++;
+    else unique.push({ ...balance, total: 1 });
+    return unique;
+  }, []);
 };

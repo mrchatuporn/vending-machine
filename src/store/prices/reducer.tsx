@@ -1,5 +1,5 @@
 import { Action, TYPE } from './types';
-import { calculateWithdrawPrice } from '../../helper/calculate';
+import { calculateBalanceCoins, IBalance } from '../../helper/calculate';
 
 export interface IPrice {
   id: number;
@@ -38,14 +38,18 @@ const priceReducer = (state: IState = initialState, action: Action): IState => {
         ),
       };
     case TYPE.WITHDRAW_PRICE:
-      const data = calculateWithdrawPrice(
-        action.payload,
-        state.prices.map(item => item.price)
-      );
+      const coins = calculateBalanceCoins(action.payload, state.prices);
+      console.log('🚀 ~ file: reducer.tsx ~ line 42 ~ priceReducer ~ coins', coins);
       return {
         ...state,
+        prices: state.prices.map(item => {
+          const coin = coins.find(coin => coin.id === item.id);
+          if (coin) {
+            return { ...item, quantity: item.quantity - coin.total };
+          }
+          return item;
+        }),
         loading: false,
-        // prices: 0,
       };
     default:
       return state;
