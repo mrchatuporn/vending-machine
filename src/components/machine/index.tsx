@@ -9,9 +9,7 @@ import Withdraw from '../withdraw';
 import ProductSelection from '../product-selection';
 
 const MachineContainer = styled.div`
-  background: #212529;
   padding: 1.5rem 0;
-
   display: flex;
   flex-grow: 1;
   justify-content: center;
@@ -33,7 +31,7 @@ const MachineContainer = styled.div`
     width: 30%;
 
     .control-item {
-      margin-bottom: 1.4rem;
+      margin-bottom: 1.2rem;
 
       &:last-child {
         margin-bottom: 0;
@@ -43,7 +41,7 @@ const MachineContainer = styled.div`
 `;
 
 const LayoutMachine = styled.div`
-  background: #212529;
+  background: #272727;
   width: 100%;
   height: 100vh;
   display: flex;

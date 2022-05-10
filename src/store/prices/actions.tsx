@@ -1,6 +1,8 @@
 import { Dispatch } from 'redux';
 import { TYPE, Action } from './types';
 import data from './data.json';
+import { IPrice } from './reducer';
+import { IBalance } from '../../helper/calculate';
 
 export const setPrice = () => (dispatch: Dispatch<Action>) => {
   dispatch({
@@ -55,7 +57,7 @@ export const depositPrice = (price: number) => (dispatch: Dispatch<Action>) => {
   }
 };
 
-export const withdrawPrice = (price: number) => (dispatch: Dispatch<Action>) => {
+export const withdrawPrice = (prices: IBalance[]) => (dispatch: Dispatch<Action>) => {
   dispatch({
     type: TYPE.PRICE_PENDING,
   });
@@ -63,7 +65,7 @@ export const withdrawPrice = (price: number) => (dispatch: Dispatch<Action>) => 
   try {
     dispatch({
       type: TYPE.WITHDRAW_PRICE,
-      payload: price,
+      payload: prices,
     });
   } catch (e: any) {
     dispatch({

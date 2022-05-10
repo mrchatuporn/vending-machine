@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 
 import { depositWallet } from '../../store/wallet/actions';
+import { setLogger } from '../../store/logger/action';
 import { removeMessage } from '../../store/message/actions';
 import { depositPrice } from '../../store/prices/actions';
 
@@ -61,6 +62,20 @@ const Deposit: FunctionComponent = () => {
     }
     dispatch(depositWallet(price));
     dispatch(depositPrice(price));
+    dispatch(
+      setLogger({
+        type: 'DEPOSIT',
+        product: undefined,
+        coins: [
+          {
+            quantity: 1,
+            price,
+          },
+        ],
+        totalCoin: price,
+        wallet: wallet + price,
+      })
+    );
   };
 
   if (loading) return <div>Loading...</div>;

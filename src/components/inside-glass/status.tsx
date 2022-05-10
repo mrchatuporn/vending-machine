@@ -74,7 +74,7 @@ const Status: FunctionComponent<IStatusProps> = ({ code, quantity, price }) => {
         </span>
       </div>
       <div className='price'>
-        <span>{price} THB</span>
+        <span>{price} COIN</span>
       </div>
     </Container>
   );

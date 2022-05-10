@@ -8,6 +8,7 @@ import Button from '../base/button';
 import { useTypedSelector } from '../../hooks';
 import { reduceInventory } from '../../store/inventory/actions';
 import { reduceWallet } from '../../store/wallet/actions';
+import { setLogger } from '../../store/logger/action';
 import { setMessage, removeMessage } from '../../store/message/actions';
 import { activeArray } from '../../helper/active';
 import { IInventory } from '../../store/inventory/reducer';
@@ -115,6 +116,15 @@ const ProductSelection: FunctionComponent = () => {
     dispatch(reduceInventory(productCode));
     dispatch(reduceWallet(product.price));
     dispatch(setMessage(`${product.name}(${productCode}) is purchased`));
+    dispatch(
+      setLogger({
+        type: 'BUY',
+        product: product,
+        coins: [],
+        totalCoin: product.price,
+        wallet: wallet - product.price,
+      })
+    );
     handleReset();
   };
 

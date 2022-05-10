@@ -1,4 +1,5 @@
 import { IPrice } from './reducer';
+import { IBalance } from '../../helper/calculate';
 
 export enum TYPE {
   PRICE_PENDING = 'PRICE_PENDING',
@@ -34,7 +35,7 @@ interface DEPOSIT_PRICE {
 
 interface WITHDRAW_PRICE {
   type: TYPE.WITHDRAW_PRICE;
-  payload: number;
+  payload: IBalance[];
 }
 
 export type Action = PRICE_PENDING | PRICE_FAIL | SET_PRICE | GET_PRICE | DEPOSIT_PRICE | WITHDRAW_PRICE;
