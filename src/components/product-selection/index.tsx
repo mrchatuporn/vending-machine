@@ -74,9 +74,12 @@ const ProductSelection: FunctionComponent = () => {
       return;
     }
 
+    if (productCode?.length >= 2 || name === productCode) return;
+
     if (productCode?.length >= 2) {
       setProductCode(name);
       setIsActive([name]);
+      return;
     }
 
     if (text) {
